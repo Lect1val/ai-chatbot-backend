@@ -22,11 +22,17 @@ def dialogflow_session(request):
         query_input = dialogflow.QueryInput(text=text_input)
         response = session_client.detect_intent(request={'session': session_path, 'query_input': query_input})
 
+        print("Full Dialogflow Response:", response)
+
         intent_name = response.query_result.intent.display_name
 
-        if intent_name == 'session_search':
-            parameters = response.query_result.parameters
-            session_name = parameters.get('session_name') if 'session_name' in parameters else None
+        print("Intent Name:", intent_name)
+
+        # Directly access parameters without merging
+        session_name = response.query_result.parameters.get('session_name', None)
+        print("Session Name:", session_name)
+
+        if intent_name == "session search":
             if session_name:
                 return JsonResponse({"fulfillmentText": f"Information for session: {session_name}"})
             else:
