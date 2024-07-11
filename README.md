@@ -1,12 +1,10 @@
 # ai-chatbot-backend
 
-## python-chatbot
-
-## Dialogflow Integration Service
+## python-chatbot (Dialogflow Integration Service)
 
 This project is a Django-based web service that integrates with Google Dialogflow to process and respond to user messages within a session context.
 
-## Prerequisites
+### Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 * You have installed Python 3 or higher.
