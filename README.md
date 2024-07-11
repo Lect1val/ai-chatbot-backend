@@ -12,10 +12,19 @@ Before you begin, ensure you have met the following requirements:
 * You have an active Google Cloud account with access to Dialogflow.
 
 ```bash
-# cd into your project path
+# cd into your project root path
+cd python_chatbot
+
+# create virtual env for python
 python -m venv myvenv
+
+# activate virtual env
 source myvenv/bin/activate  # On Windows use `myvenv\Scripts\activate`
+
 # cd into chatbot_project
+cd chatbot_project
+
+#install required dependencies to use in this project
 pip install -r requirements.txt 
 ```
 Create a .env file in the project root directory and include necessary configurations:
