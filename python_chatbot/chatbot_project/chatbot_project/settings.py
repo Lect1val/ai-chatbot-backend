@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,3 +134,8 @@ DIALOGFLOW_PROJECT_ID = os.getenv("DIALOGFLOW_PROJECT_ID")
 
 print(f"DIALOGFLOW_PROJECT_ID: {DIALOGFLOW_PROJECT_ID}")
 print(f"GOOGLE_CREDENTIALS_JSON: {GOOGLE_CREDENTIALS_JSON[:30]}...")
+
+CORS_ALLOW_ALL_ORIGINS = False  # Set to False to be more specific
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Adjust the port if your frontend runs on a different one
+]
