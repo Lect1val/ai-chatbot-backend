@@ -15,6 +15,7 @@ Before you begin, ensure you have met the following requirements:
 # cd into your project path
 python -m venv myvenv
 source myvenv/bin/activate  # On Windows use `myvenv\Scripts\activate`
+# cd into chatbot_project
 pip install -r requirements.txt 
 ```
 Create a .env file in the project root directory and include necessary configurations:
@@ -29,4 +30,10 @@ python manage.py migrate
 Launch the development server:
 ```
 python manage.py runserver
+```
+curl
+```
+curl --location 'http://127.0.0.1:8000/dialogflow/session/' \
+--header 'Content-Type: application/json' \
+--data '{"text": "Hello", "session_id": "123"}'
 ```
