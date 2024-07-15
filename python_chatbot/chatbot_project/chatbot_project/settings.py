@@ -131,9 +131,11 @@ load_dotenv()  # Load environment variables from .env file
 
 GOOGLE_CREDENTIALS_JSON = os.getenv("GOOGLE_CREDENTIALS_JSON")
 DIALOGFLOW_PROJECT_ID = os.getenv("DIALOGFLOW_PROJECT_ID")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 print(f"DIALOGFLOW_PROJECT_ID: {DIALOGFLOW_PROJECT_ID}")
 print(f"GOOGLE_CREDENTIALS_JSON: {GOOGLE_CREDENTIALS_JSON[:30]}...")
+print(f"OPENAI_API_KEY: {OPENAI_API_KEY[:30]}...")
 
 CORS_ALLOW_ALL_ORIGINS = False  # Set to False to be more specific
 CORS_ALLOWED_ORIGINS = [

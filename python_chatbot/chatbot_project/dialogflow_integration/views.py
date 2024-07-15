@@ -1,5 +1,6 @@
 import os
 import json
+import openai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from google.oauth2 import service_account
@@ -40,10 +41,21 @@ def dialogflow_session(request):
 
         elif intent_name == "Aster arcade URL":
             return JsonResponse({
-                "fulfillmentText": "This is the URL of Aster Arcade: [Aster-arcade](url:https://aster.arisetech.dev/aster-arcade/)"
+                "fulfillmentText": "This is the URL of some random video you don't wanna know what is it: [Youtube](url:https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
             })
 
+        if response.query_result.intent.is_fallback or response.query_result.intent.display_name == "":
+            # Fallback to OpenAI using the new API
+            openai.api_key = os.getenv('OPENAI_API_KEY')
+            openai_response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": text}]
+            )
+            return JsonResponse({"fulfillmentText": openai_response['choices'][0]['message']['content'].strip()})
+        else:
+            return JsonResponse({"fulfillmentText": response.query_result.fulfillment_text})
+
         # Default response if no specific intent matched
-        return JsonResponse({"fulfillmentText": response.query_result.fulfillment_text})
+        # return JsonResponse({"fulfillmentText": response.query_result.fulfillment_text})
 
     return JsonResponse({"status": "error", "message": "This endpoint supports only POST method."})
