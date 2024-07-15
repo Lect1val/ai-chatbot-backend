@@ -2,7 +2,7 @@
 
 ## python-chatbot (Dialogflow Integration Service)
 
-This project is a Django-based web service that integrates with Google Dialogflow to process and respond to user messages within a session context.
+This project is a Django-based web service that integrates with Google Dialogflow and OpenAI to process and respond to user messages within a session context.
 
 ### Prerequisites
 
