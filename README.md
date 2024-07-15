@@ -1,6 +1,6 @@
 # ai-chatbot-backend
 
-## python-chatbot (Dialogflow Integration Service)
+## python-chatbot (Dialogflow And OpenAI Integration Service)
 
 This project is a Django-based web service that integrates with Google Dialogflow and OpenAI to process and respond to user messages within a session context.
 
