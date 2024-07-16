@@ -23,9 +23,12 @@ func main() {
 
 	r := gin.Default()
 
+	// Apply CORS middleware to the router
+	r.Use(CORSMiddleware())
+
 	r.POST("/dialogflow/session/", dialogflowSessionHandler)
 
-	r.Run(":8000") // Listen and serve on 0.0.0.0:8000
+	r.Run(":8000")
 }
 
 func dialogflowSessionHandler(c *gin.Context) {
@@ -100,4 +103,20 @@ func dialogflowSessionHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"fulfillmentText": queryResult.GetFulfillmentText()})
+}
+
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+
+		// If it's an OPTIONS request, we should return HTTP 200 OK
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusOK)
+		} else {
+			c.Next()
+		}
+	}
 }
