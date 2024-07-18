@@ -78,30 +78,42 @@ func dialogflowSessionHandler(c *gin.Context) {
 	queryResult := response.GetQueryResult()
 	intentName := queryResult.GetIntent().GetDisplayName()
 
-	if intentName == "Default Fallback Intent" || intentName == "" {
+	switch intentName {
+	case "session search":
+		sessionName := queryResult.Parameters.Fields["session_name"].GetStringValue()
+		if sessionName != "" {
+			c.JSON(http.StatusOK, gin.H{"fulfillmentText": "Information for session: " + sessionName})
+		} else {
+			c.JSON(http.StatusOK, gin.H{"fulfillmentText": "Session name not provided."})
+		}
+		return
+	case "Aster arcade URL":
+		c.JSON(http.StatusOK, gin.H{
+			"fulfillmentText": "This is the URL of Aster Arcade: [Aster-arcade](https://aster.arisetech.dev/aster-arcade/)",
+		})
+		return
+	case "Default Fallback Intent", "":
 		client := openai.NewClient(os.Getenv("OPENAI_API_KEY"))
 		resp, err := client.CreateChatCompletion(
 			context.Background(),
 			openai.ChatCompletionRequest{
 				Model: "gpt-3.5-turbo",
 				Messages: []openai.ChatCompletionMessage{
-					{
-						Role:    openai.ChatMessageRoleUser,
-						Content: "Please provide general information or engage in a casual conversation about: " + text,
-					},
+					{Role: openai.ChatMessageRoleUser, Content: "Please provide general information or engage in a casual conversation about: " + text},
 				},
 				MaxTokens:   150,
 				Temperature: 0.7,
 			},
 		)
 		if err != nil {
-			fmt.Printf("ChatCompletion error: %v\n", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error4": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"fulfillmentText": resp.Choices[0].Message.Content})
 		return
+	default:
+		c.JSON(http.StatusOK, gin.H{"fulfillmentText": queryResult.GetFulfillmentText()})
 	}
-
 	c.JSON(http.StatusOK, gin.H{"fulfillmentText": queryResult.GetFulfillmentText()})
 }
 

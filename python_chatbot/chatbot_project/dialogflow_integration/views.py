@@ -41,7 +41,7 @@ def dialogflow_session(request):
 
         elif intent_name == "Aster arcade URL":
             return JsonResponse({
-                "fulfillmentText": "This is the URL of some random video you don't wanna know what is it: [Youtube](url:https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
+                "fulfillmentText": "This is the URL of Aster Arcade: [Aster-arcade](url:https://aster.arisetech.dev/aster-arcade/)"
             })
 
         if response.query_result.intent.is_fallback or response.query_result.intent.display_name == "":
