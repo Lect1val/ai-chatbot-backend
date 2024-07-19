@@ -114,7 +114,6 @@ func dialogflowSessionHandler(c *gin.Context) {
 	default:
 		c.JSON(http.StatusOK, gin.H{"fulfillmentText": queryResult.GetFulfillmentText()})
 	}
-	c.JSON(http.StatusOK, gin.H{"fulfillmentText": queryResult.GetFulfillmentText()})
 }
 
 func CORSMiddleware() gin.HandlerFunc {
