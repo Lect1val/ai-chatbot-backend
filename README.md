@@ -1,5 +1,5 @@
 # ai-chatbot-backend
-this repository contain two code base language for dialogflow integration (go and python)
+this repository contain two code base language for Dialogflow and OpenAI integration (go and python)
 ## go-chatbot (Dialogflow And OpenAI Integration Service)
 
 This project is a Gin-based web service that integrates with Google Dialogflow and OpenAI to process and respond to user messages within a session context.
